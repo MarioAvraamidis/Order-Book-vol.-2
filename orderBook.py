@@ -169,38 +169,3 @@ class OrderBook:
 
     def __str__(self):
         return "\nbook: " + str(self.name) + "\norders: " + str(self.orders.keys()) + "\nbids: " + str(self.bids) + "\nasks: " + str(self.asks)
-        
-
-
-book = OrderBook("book")
-for _ in range(3):
-    for i in range(1,6):
-        book.placeOrder(isMarket=False, isBuy=True, qty=20, price=100-i)
-        book.placeOrder(isMarket=False, isBuy=False, qty=20, price=100+i)
-    print(book)
-x = 15
-book.placeOrder(isMarket=False, isBuy=True, qty=100, price = 102)
-book.placeOrder(isMarket=False, isBuy=True, qty=100, price = 101)
-print(book,"\n")
-print(book.tradeHistory)
-"""
-for _ in range(x):
-    book.placeOrder(isMarket=True, isBuy=True, qty=x)
-    book.placeOrder(isMarket=True, isBuy=False, qty=x)
-print(book)
-print(book.bestBid())
-print(book.bestAsk())
-"""
-"""
-for i in range(book.counter+1):
-    book.removeOrder(i)
-print(book)
-"""
-"""
-ls = OrderList(1)
-for i in range(5):
-    ls.append(Order(i,True, False, 1, 20*i))
-print(ls)
-while ls:
-    print(ls.pop(), end = " ")
-"""
