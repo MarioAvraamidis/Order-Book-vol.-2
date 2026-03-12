@@ -13,7 +13,7 @@ A high-performance order matching engine implemented in Python, featuring a **cu
 
 ### Core Components
 
-#### 1. **Custom Heap (`CustomHeap`)**
+#### 1. **Custom Heap (`HeapQueue`)**
 A binary min-heap built from scratch to support **O(log n) arbitrary deletion** — something Python's built-in `heapq` does not support.
 
 ```
@@ -25,15 +25,20 @@ HeapQueue
 └── peek()              → O(1)
 ```
 
-Key design: Keeping a hash map with the existing key values and their position in the array.
+Key design: Keeping a hash map with the existing key values and their position in the array tree.
 
 #### 2. **Dual Heap Structure**
 ```
-Bids: CustomHeap — Max Heap (highest price first)
-└── Node(key=-price, val=OrderList)
-
-Asks: CustomHeap — Min Heap (lowest price first)
-└── Node(key=price, val=OrderList)
+bids: HeapQueue
+   └── {-price: OrderList}
+         └── Node → Node → Node (doubly-linked)
+               ↓      ↓      ↓
+             Order  Order  Order
+ asks: HeapQueue
+   └── {price: OrderList}
+         └── Node → Node → Node (doubly-linked)
+               ↓      ↓      ↓
+             Order  Order  Order
 ```
 
 #### 3. **OrderList (Doubly-Linked List)**
@@ -51,13 +56,7 @@ orders:  order_id → ListNode   # O(1) access to list node
 ### Full Architecture
 ```
 OrderBook
-├── bids: HeapQueue
-│     └── {-price: OrderList}
-│           └── Node → Node → Node (doubly-linked)
-│                 ↓      ↓      ↓
-│               Order  Order  Order
-├── asks: HeapQueue
-│     └── {price: OrderList}
+├── bids/asks: HeapQueue
 ├── orders: {order_id: Node}  ← Direct node reference
 └── data
       ├── record of all orders
