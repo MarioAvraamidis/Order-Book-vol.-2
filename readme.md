@@ -90,7 +90,7 @@ k = number of different price levels
 | **Add Order (new price)** | O(log k) | Heap insert |
 | **Add Order (existing price)** | O(1) | List append |
 | **Cancel Order** | O(1) | Dict lookup + List removal |
-| **Remove Empty Price Level** | O(log k) | Direct node removal via stored reference |
+| **Remove Empty Price Level** | O(log k) | Direct price removal via HeapQueue |
 | **Get Best Bid/Ask** | O(1) | Heap peek |
 | **Execute Trade** | O(log k) | List ops + heap removal if level empties |
 | **Match Orders** | O(m log k) | m = number of price levels swept |
@@ -103,7 +103,7 @@ k = number of different price levels
 | File | Description |
 |------|-------------|
 | `orderBook.py` | Order book implementation |
-| `heapQueue.py` | Custom pointer-based heap |
+| `heapQueue.py` | Custom array-based heap |
 | `test_order_book.py` | Test suite |
 | `heapQueueTesting.py` | Test queue implementation |
 
